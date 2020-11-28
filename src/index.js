@@ -1,17 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-
+import  InitForm from './InitForm';
+import About from './about'
+import Done from './done'
+import { AppBar, Toolbar } from '@material-ui/core'
+import {BrowserRouter, Route,Switch} from 'react-router-dom';
+import FillPreference from './fillPreference';
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <div>
+     <AppBar position="static">
+            <Toolbar >
+              Group Us
+            </Toolbar>
+      </AppBar>
+      <BrowserRouter>
+        <App />
+    </BrowserRouter>, 
+      </div>
   </React.StrictMode>,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+function App() {
+    return (
+        <main>
+        <Switch>
+          <Route path="/" component={InitForm} exact />
+          <Route path="/home" component={InitForm} exact />
+          <Route path="/about" component={About} />
+          <Route path="/done" component={Done} />
+          <Route path="/fillPreference/:id/:secret" component={FillPreference} />
+          </Switch>
+        </main>
+    )
+}
