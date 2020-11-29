@@ -12,20 +12,21 @@ class FillPreference extends React.Component {
         this.getNames = this.getNames.bind(this);
         this.getNames()
 
-        this.state = {name:"Anjay",title:"Test",owner_name:"Test",all:["A","B","C","D","F","G","H","I","J","K","L"],chosen:["D","F","G","H","I"]}
+        this.state = {
+            name: "Anjay", title: "Test", owner_name: "Test", all: [], chosen: [], chosenPref: []
+        }
     }
 
-      async getNames() {
+        async getNames() {
         const requestOptions = {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.state)
     };
     fetch('http://127.0.0.1:5000/fill/'+this.props.match.params.id+"/"+this.props.match.params.secret, requestOptions)
-        .then(response => (response.text()))
+        .then(response => (response.json()))
         .then(data => {
             console.log(data) 
-            data = JSON.parse(data)
           this.setState({name:data["name"],title:data["title"],owner_name:data["owner_name"],all:data["names"],chosen:[]})
         }).catch(function(err) {
           
@@ -34,8 +35,27 @@ class FillPreference extends React.Component {
   
   }
 
-    handleSubmit() {
-            this.props.history.push("/Done");
+    handleSubmit(event) {
+        event.preventDefault();
+        const chosenPref = this.state.chosenPref
+        var data = this.state.chosen.map(function (e, i) {
+            return [e, chosenPref[i]];
+        })
+        var payload = {"data":data}
+        console.log(payload)
+        const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+        };
+        
+        fetch('http://127.0.0.1:5000/submit/' + this.props.match.params.id + "/" + this.props.match.params.secret, requestOptions)
+        .then(response => (response.json())).then(data => {
+        console.log(data) 
+          this.props.history.push("/Done");
+        }).catch(function(err) {
+        console.info(err + "------err------");
+    });
 
     }
     delete(i) {
@@ -43,8 +63,13 @@ class FillPreference extends React.Component {
         const newChosen = this.state.chosen
         newChosen.splice(i, 1)
         this.setState({ chosen: newChosen })
-        
         console.log(this.state.chosen)
+    }
+    pref(i, val) {
+        console.log(i+"---"+val)
+        const newChosenPref = this.state.chosenPref
+        newChosenPref[i] = parseInt(val)
+        this.setState({chosenPref:newChosenPref})
     }
     handleTag(event, value) {
         if (!this.state.all.includes(value)) {
@@ -62,8 +87,8 @@ class FillPreference extends React.Component {
                 console.log(this.state.chosen)
 
         for (const i in this.state.chosen) {
-           
-            items.push(<Item name={this.state.chosen[i]} onClick = {() => this.delete(i)}/>)
+
+            items.push(<Item key={ i.toString()} name={this.state.chosen[i]} onClick = {() => this.delete(i)}  onPref = {(event) => this.pref(i,event.target.value)}/>)
         }
       return (
            <Grid container
@@ -74,7 +99,7 @@ class FillPreference extends React.Component {
               
               <form onSubmit={this.handleSubmit}>
                   <p>Hello {this.state.name},<br/>Please fill out your Preference for { this.state.title} </p>
-              <span style={{"display":"flex", "flex-direction": "row", "justify-content": "center", "align-items": "center"}}>
+              <span style={{"display":"flex", "flexDirection": "row", "justifyContent": "center", "alignItems": "center"}}>
                       <Typography style={{margin:10}}>Find Name</Typography><Autocomplete
                           onInputChange={this.handleTag}
                     options={this.state.all}
@@ -84,10 +109,10 @@ class FillPreference extends React.Component {
                     renderInput={(params) => <TextField {...params} variant="outlined" />}
                       />       </span>
                   <Paper elevation={0} style={{ maxHeight: 400, overflow: 'auto'}}>
-                      <List style={{ "justify-content": "center", "align-items": "center" }}>
+                      <List style={{ "justifyContent": "center", "alignItems": "center" }}>
                       {items}
                       </List></Paper>
-                  <span style={{"margin":"20px", "display":"flex", "flex-direction": "row", "justify-content": "center", "align-items": "center"}}>
+                  <span style={{"margin":"20px", "display":"flex", "flexDirection": "row", "justifyContent": "center", "alignItems": "center"}}>
                   <Button type="submit" style={{ margin:"20px" }} variant="contained" color="primary" type="Submit" style={ {alignSelf:"center"}} >Submit</Button>
         </span> </form></Grid>
       )
@@ -100,14 +125,14 @@ class Item extends React.Component {
   }
     render() {
         return (
-            <ListItem style={{ "justify-content": "center", "align-items": "center" }}>
+            <ListItem style={{ "justifyContent": "center", "alignItems": "center" }}>
                 <Paper>
-                <span style={{"display":"flex", "flex-direction": "row", "justify-content": "center", "align-items": "center"}}>
+                <div style={{"display":"flex", "flexDirection": "row", "alignItems": "center"}}>
                 <Typography align ='center' style={ {margin:'20px'}}>{this.props.name}</Typography>
-                    <TextField required={true}   InputProps={{inputProps: {  max: 10, min: 0   }}} type="number" label="Preference (0-10)"></TextField>
+                        <TextField style={{ minWidth:"170px" }} required={true} onChange={ this.props.onPref} InputProps={{inputProps: {  max: 10, min: 0   }}} type="number" label="Preference (0-10)"></TextField>
                 <IconButton aria-label="delete" onClick={this.props.onClick}>
           <DeleteIcon fontSize="large" />
-        </IconButton></span></Paper></ListItem>
+        </IconButton></div></Paper></ListItem>
  
       )
    }

@@ -1,3 +1,0 @@
-"id": "_nYON9PpBSfOE3JhNQ9-6g",
-"secret": "d-ZMcDJ4vBzhUviAFWt5LQ"
-http://localhost:3000/fillPreference/_nYON9PpBSfOE3JhNQ9-6g/d-ZMcDJ4vBzhUviAFWt5LQ

@@ -22,6 +22,10 @@ class InitForm extends React.Component {
         else if (name === "deadline") {
       this.setState({"deadline":Date.parse(val)/1000})
     }
+      
+      else if (name === "grpSize") {
+      this.setState({"grpSize":parseInt(val)})
+    }
     else {
       this.setState({ [name]: val })
     }
@@ -36,7 +40,7 @@ class InitForm extends React.Component {
         body: JSON.stringify(this.state)
     };
     fetch('http://127.0.0.1:5000/create', requestOptions)
-        .then(response => JSON.parse(response.text()))
+        .then(response => (response.json()))
       .then(data => {
         console.log(data) 
           this.props.history.push("/Done");
