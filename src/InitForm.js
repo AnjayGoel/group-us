@@ -1,7 +1,5 @@
 import React from 'react';
-import { unmountComponentAtNode} from 'react-dom'
-import {Button,AppBar,Toolbar,List,ListItem,FormControl,Typography, Grid, TextField} from '@material-ui/core'
-import * as EmailValidator from 'email-validator'
+import {Button,List,ListItem, Grid, TextField} from '@material-ui/core'
 class InitForm extends React.Component {
   constructor() {
     super();
@@ -75,7 +73,7 @@ class InitForm extends React.Component {
               alignItems="left"
               style={{ minHeight: '100vh', margin:'40px'}}>
               <form id="mainForm" onSubmit={this.handleSubmit}>
-                <p>Enter Your Name</p>
+                <p>Your Name</p>
                 <TextField
                   name="owner_name"
                 type="text"
@@ -83,7 +81,7 @@ class InitForm extends React.Component {
                   data-parse="uppercase"
                   onChange={this.handleChange}
                 />
-                <p>Enter Your Email</p>
+                <p>Your Email</p>
 
                 <TextField
                   name="owner_email"
@@ -92,7 +90,7 @@ class InitForm extends React.Component {
                   onChange={this.handleChange}
                 />
 
-                <p>Enter Title of Project</p>
+                <p>Title of Project</p>
                 <TextField
                   name="title"
                 type="text"
@@ -100,7 +98,7 @@ class InitForm extends React.Component {
 
                   onChange={this.handleChange}
               />
-               <p>Enter Max Group Size</p>
+               <p>Max Group Size</p>
                 <TextField
                   name="grpSize"
                 type="number" InputProps={{inputProps: {  min: 0   }}} 
@@ -109,7 +107,7 @@ class InitForm extends React.Component {
                   onChange={this.handleChange}
                 />
 
-                <p>Enter The Deadline for Group Formation</p>
+                <p>The Deadline for Group Formation</p>
 
                 <TextField
                   name="deadline"
@@ -119,16 +117,16 @@ class InitForm extends React.Component {
                   onChange={this.handleChange}
                 />
 
-                <p>Enter Names of Members seperated by newline</p>
+                <p>Names of Members seperated by newline</p>
 
-                <TextField multiline={true}  required={true} rowsMax={10} onChange={this.handleChange} label="Member Emails" variant="outlined" name="member_names" />
+                <TextField multiline={true}  required={true} rowsMax={10} onChange={this.handleChange} label="Member Names" variant="outlined" name="member_names" />
 
-                <p>Enter Emails of Members (In same order as names)</p>
+                <p>Emails of Members (In same order as names)</p>
 
                 <TextField multiline={true} required={true} rowsMax={10} onChange={this.handleChange} label="Member Emails" variant="outlined"
                   name="member_emails" />
                 <p />
-                <Button type="submit" variant="contained" color="primary" >Submit</Button>
+                <Button type="Submit" variant="contained" color="primary" >Submit</Button>
               </form></Grid></div>
         
       );

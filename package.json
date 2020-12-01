@@ -1,7 +1,7 @@
 {
   "name": "srg-web",
   "version": "0.1.0",
-  "homepage": "http://anjaygoel.github.io/GroupUs",
+  "homepage": "https://anjaygoel.github.io/GroupUs",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.1",

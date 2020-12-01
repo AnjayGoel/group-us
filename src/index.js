@@ -5,7 +5,7 @@ import  InitForm from './InitForm';
 import About from './about'
 import Done from './done'
 import { AppBar, Toolbar } from '@material-ui/core'
-import {BrowserRouter, Route,Switch} from 'react-router-dom';
+import {HashRouter, Route,Switch} from 'react-router-dom';
 import FillPreference from './fillPreference';
 ReactDOM.render(
   <React.StrictMode>
@@ -15,9 +15,9 @@ ReactDOM.render(
               Group Us
             </Toolbar>
       </AppBar>
-      <BrowserRouter>
+      <HashRouter basename="https://anjaygoel.github.io/GroupUs/">
         <App />
-    </BrowserRouter>, 
+    </HashRouter>, 
       </div>
   </React.StrictMode>,
   document.getElementById('root')

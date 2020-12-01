@@ -113,7 +113,7 @@ class FillPreference extends React.Component {
                       {items}
                       </List></Paper>
                   <span style={{"margin":"20px", "display":"flex", "flexDirection": "row", "justifyContent": "center", "alignItems": "center"}}>
-                  <Button type="submit" style={{ margin:"20px" }} variant="contained" color="primary" type="Submit" style={ {alignSelf:"center"}} >Submit</Button>
+                  <Button type="submit" style={{ margin:"20px",alignSelf:"center" }} variant="contained" color="primary" >Submit</Button>
         </span> </form></Grid>
       )
    }
