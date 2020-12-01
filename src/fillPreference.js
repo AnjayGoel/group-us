@@ -26,9 +26,12 @@ class FillPreference extends React.Component {
     fetch('https://silverbug.eastus.cloudapp.azure.com/fill/'+this.props.match.params.id+"/"+this.props.match.params.secret, requestOptions)
         .then(response => (response.json()))
         .then(data => {
+        if (data["status"] === 0) {
+            alert(data["message"])
+            return
+        }
           this.setState({name:data["name"],title:data["title"],owner_name:data["owner_name"],all:data["names"],chosen:[]})
         }).catch(function(err) {
-          
         console.info(err + "------err------");
     });
   
@@ -48,7 +51,11 @@ class FillPreference extends React.Component {
         };
         
         fetch('https://silverbug.eastus.cloudapp.azure.com/submit/' + this.props.match.params.id + "/" + this.props.match.params.secret, requestOptions)
-        .then(response => (response.json())).then(data => {
+            .then(response => (response.json())).then(data => {
+         if (data["status"] === 0) {
+             alert(data["message"])
+             return
+        }
         this.props.history.push("/Done");
         }).catch(function(err) {
         console.info(err + "------err------");

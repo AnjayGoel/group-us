@@ -63,7 +63,11 @@ class InitForm extends React.Component {
     fetch('https://silverbug.eastus.cloudapp.azure.com/create', requestOptions)
         .then(response => (response.json()))
       .then(data => {
-          this.props.history.push("/Done");
+        if (data["status"] === 0) {
+          alert(data["message"])
+          return
+        }
+        this.props.history.push("/Done");
         }).catch(function(err) {
           
         console.info(err + "------err------");
