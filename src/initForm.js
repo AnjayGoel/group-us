@@ -107,9 +107,8 @@ class InitForm extends React.Component {
           How to use:<br />
               <ul>
                 <li>Fill out this form.</li>
-                <li>App sends out a email to all the members, asking them their preferences.</li>
-                <li>Once the preferences are collected (or deadline is reached), the app will form groups and send emails to informing people of their groups.
-        </li>
+                <li>App sends a email to all the members, asking them their preferences.</li>
+                <li>Once the preferences are collected (or deadline is reached), the app will form groups and send emails (to you and all members), informing them of their groups.</li>
               </ul>
             </div>
             <br />
