@@ -146,7 +146,7 @@ class InitForm extends React.Component {
                <p>Group Size</p>
                 <TextField
                   name="grpSize"
-                type="number" InputProps={{inputProps: {  min: 0   }}} 
+                type="number" InputProps={{inputProps: {  min: 2   }}} 
                                 required={true}
 
                   onChange={this.handleChange}
