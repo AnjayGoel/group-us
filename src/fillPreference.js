@@ -13,7 +13,7 @@ class FillPreference extends React.Component {
         this.getNames()
 
         this.state = {
-            name: "Anjay", title: "Test", owner_name: "Test", all: [], chosen: [], chosenPref: []
+            name: "Loading...", title: "Loading...", owner_name: "Loading....", all: [], chosen: [], chosenPref: []
         }
     }
 

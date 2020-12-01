@@ -78,7 +78,7 @@ class InitForm extends React.Component {
     
       return (
           <div id="main">
-            <div style={{ "margin-left": "40px"}}>
+            <div style={{ "marginLeft": "40px"}}>
               <br />
           How to use:<br />
               <List>
