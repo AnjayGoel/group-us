@@ -36,7 +36,7 @@ class InitForm extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.state)
     };
-    fetch('http://13.92.86.43:80/create', requestOptions)
+    fetch('https://silverbug.eastus.cloudapp.azure.com/create', requestOptions)
         .then(response => (response.json()))
       .then(data => {
           this.props.history.push("/Done");

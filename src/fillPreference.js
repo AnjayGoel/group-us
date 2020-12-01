@@ -23,7 +23,7 @@ class FillPreference extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.state)
     };
-    fetch('http://13.92.86.43:80/fill/'+this.props.match.params.id+"/"+this.props.match.params.secret, requestOptions)
+    fetch('https://silverbug.eastus.cloudapp.azure.com/fill/'+this.props.match.params.id+"/"+this.props.match.params.secret, requestOptions)
         .then(response => (response.json()))
         .then(data => {
           this.setState({name:data["name"],title:data["title"],owner_name:data["owner_name"],all:data["names"],chosen:[]})
@@ -47,7 +47,7 @@ class FillPreference extends React.Component {
         body: JSON.stringify(payload)
         };
         
-        fetch('http://13.92.86.43:80/submit/' + this.props.match.params.id + "/" + this.props.match.params.secret, requestOptions)
+        fetch('https://silverbug.eastus.cloudapp.azure.com/submit/' + this.props.match.params.id + "/" + this.props.match.params.secret, requestOptions)
         .then(response => (response.json())).then(data => {
         this.props.history.push("/Done");
         }).catch(function(err) {
