@@ -32,7 +32,7 @@ class FillPreference extends React.Component {
                 this.setState({ isError: true })
                 return
             }
-          this.setState({name:data["name"],title:data["title"],owner_name:data["owner_name"],all:data["names"],chosen:[]})
+            this.setState({ name: data["name"], title: data["title"], owner_name: data["owner_name"], all: data["names"].filter(item=>item!==data["name"]),chosen:[]})
         }).catch(function (err) {
             this.setState({ isLoading: false, isError:true})
             console.info(err + "------err------");
