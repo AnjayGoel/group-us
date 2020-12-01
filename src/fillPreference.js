@@ -23,10 +23,9 @@ class FillPreference extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.state)
     };
-    fetch('http://127.0.0.1:5000/fill/'+this.props.match.params.id+"/"+this.props.match.params.secret, requestOptions)
+    fetch('http://13.92.86.43:80/fill/'+this.props.match.params.id+"/"+this.props.match.params.secret, requestOptions)
         .then(response => (response.json()))
         .then(data => {
-            console.log(data) 
           this.setState({name:data["name"],title:data["title"],owner_name:data["owner_name"],all:data["names"],chosen:[]})
         }).catch(function(err) {
           
@@ -42,31 +41,26 @@ class FillPreference extends React.Component {
             return [e, chosenPref[i]];
         })
         var payload = {"data":data}
-        console.log(payload)
         const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
         };
         
-        fetch('http://127.0.0.1:5000/submit/' + this.props.match.params.id + "/" + this.props.match.params.secret, requestOptions)
+        fetch('http://13.92.86.43:80/submit/' + this.props.match.params.id + "/" + this.props.match.params.secret, requestOptions)
         .then(response => (response.json())).then(data => {
-        console.log(data) 
-          this.props.history.push("/Done");
+        this.props.history.push("/Done");
         }).catch(function(err) {
         console.info(err + "------err------");
     });
 
     }
     delete(i) {
-        console.log("---"+i)
         const newChosen = this.state.chosen
         newChosen.splice(i, 1)
         this.setState({ chosen: newChosen })
-        console.log(this.state.chosen)
     }
     pref(i, val) {
-        console.log(i+"---"+val)
         const newChosenPref = this.state.chosenPref
         newChosenPref[i] = parseInt(val)
         this.setState({chosenPref:newChosenPref})
@@ -75,7 +69,6 @@ class FillPreference extends React.Component {
         if (!this.state.all.includes(value)) {
             return
         }
-        console.log(value)
         const newChosen = this.state.chosen
         if (!newChosen.includes(value)) {
             newChosen.push(value)
@@ -84,7 +77,6 @@ class FillPreference extends React.Component {
   };
     render() {
         const items = []
-                console.log(this.state.chosen)
 
         for (const i in this.state.chosen) {
 

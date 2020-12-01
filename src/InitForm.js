@@ -31,16 +31,14 @@ class InitForm extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    console.log(JSON.stringify(this.state))
         const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.state)
     };
-    fetch('http://127.0.0.1:5000/create', requestOptions)
+    fetch('http://13.92.86.43:80/create', requestOptions)
         .then(response => (response.json()))
       .then(data => {
-        console.log(data) 
           this.props.history.push("/Done");
         }).catch(function(err) {
           
