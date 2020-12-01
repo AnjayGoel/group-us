@@ -60,9 +60,7 @@ class InitForm extends React.Component {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.state)
     };
-    fetch('https://silverbug.eastus.cloudapp.azure.com/create', requestOptions)
-        .then(response => (response.json()))
-      .then(data => {
+    fetch('https://silverbug.eastus.cloudapp.azure.com/create', requestOptions).then(response => (response.json())).then(data => {
         if (data["status"] === 0) {
           alert(data["message"])
           return
