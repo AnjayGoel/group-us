@@ -1,4 +1,5 @@
 import React from 'react';
+import validator from 'validator'
 import {Button,List,ListItem, Grid, TextField} from '@material-ui/core'
 class InitForm extends React.Component {
   constructor() {
@@ -12,10 +13,10 @@ class InitForm extends React.Component {
     let name = event.target.name;
     let val = event.target.value;
     if (name === "member_emails") {
-      this.setState({"member_emails":val.split(/\r?\n/)})
+      this.setState({"member_emails":val.trim().split(/\r?\n/)})
     }
     else if (name === "member_names") {
-      this.setState({"member_names":val.split(/\r?\n/)})
+      this.setState({"member_names":val.trim().split(/\r?\n/)})
     }
         else if (name === "deadline") {
       this.setState({"deadline":Date.parse(val)/1000})
@@ -31,7 +32,30 @@ class InitForm extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-        const requestOptions = {
+ 
+    for (const i of this.state["member_emails"]) {
+      if (!validator.isEmail(i.trim())) {
+        alert("Please Check Member Emails For Error (Invalid Email-Id,Empty Rows etc)")
+        return
+      }
+      
+    }
+    for (const i of this.state["member_names"]) {
+      if (i==="") {
+        alert("Please Check Member Names For Error (Empty Rows etc)")
+        return
+      }
+
+    }
+    if (this.state.member_emails.length === 0 || this.state.member_names.length === 0) {
+      alert("Please Fill All Fields")
+      return;
+    }
+    if (this.state.member_emails.length !== this.state.member_names.length) {
+      alert("Different Number Of Names And Email")
+      return;
+    }
+    const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(this.state)
