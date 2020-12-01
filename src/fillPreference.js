@@ -118,9 +118,9 @@ class FillPreference extends React.Component {
               style={{ minHeight: '100vh', margin:'40px'}}>
               
               <form onSubmit={this.handleSubmit}>
-                  <p>Hello {this.state.name},<br/>Please fill out your Preference for { this.state.title} </p>
+                  <p>Hello {this.state.name},<br/>Please fill out your preferences for { this.state.title} </p>
               <span style={{"display":"flex", "flexDirection": "row", "justifyContent": "center", "alignItems": "center"}}>
-                      <Typography style={{margin:10}}>Find Name</Typography><Autocomplete
+                      <Typography style={{margin:10}}>Find Name:</Typography><Autocomplete
                           onInputChange={this.handleTag}
                     options={this.state.all}
                     getOptionLabel={(option) => option}
@@ -134,7 +134,14 @@ class FillPreference extends React.Component {
                       </List></Paper>
                   <span style={{"margin":"20px", "display":"flex", "flexDirection": "row", "justifyContent": "center", "alignItems": "center"}}>
                   <Button type="submit" style={{ margin:"20px",alignSelf:"center" }} variant="contained" color="primary" >Submit</Button>
-        </span> </form></Grid>
+                    </span>
+                    <div>
+                        Note:
+                        <ul>
+                            <li>You can leave out choices, it that case they will be given a preference of zero.</li>
+                            <li>Filling out as many choices as you can will lead to a better matching.</li>
+                        </ul>
+                    </div></form></Grid>
       )
    }
 }
