@@ -1,18 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import  InitForm from './InitForm';
+import  InitForm from './initForm';
 import About from './about'
 import Done from './done'
-import { AppBar, Toolbar } from '@material-ui/core'
+import { AppBar, Toolbar,Typography } from '@material-ui/core'
 import {HashRouter, Route,Switch} from 'react-router-dom';
 import FillPreference from './fillPreference';
 ReactDOM.render(
   <React.StrictMode>
     <div>
      <AppBar position="static">
-            <Toolbar >
-              Group Us
+        <Toolbar >
+          <Typography>
+            Group Us
+          </Typography>
             </Toolbar>
       </AppBar>
       <HashRouter>

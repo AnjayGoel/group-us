@@ -1,9 +1,13 @@
 import React from 'react';
 import validator from 'validator'
+import { Alert } from '@material-ui/lab'
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import {Button,List,ListItem, Grid, TextField} from '@material-ui/core'
 class InitForm extends React.Component {
   constructor() {
     super();
+    this.state = {isLoading:false,isError:false}
     this.handleChange= this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -32,6 +36,7 @@ class InitForm extends React.Component {
 
   async handleSubmit(event) {
     event.preventDefault();
+    this.setState({isLoading:true})
  
     for (const i of this.state["member_emails"]) {
       if (!validator.isEmail(i.trim())) {
@@ -55,19 +60,24 @@ class InitForm extends React.Component {
       alert("Different Number Of Names And Email")
       return;
     }
+    let payload = { ... this.state }
+    delete payload["isError"]
+    delete payload["isLoading"]
+    console.log(payload)
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(this.state)
+        body: JSON.stringify(payload)
     };
     fetch('https://silverbug.eastus.cloudapp.azure.com/create', requestOptions).then(response => (response.json())).then(data => {
-        if (data["status"] === 0) {
-          alert(data["message"])
-          return
+      this.setState({isLoading:false})
+      if (data["status"] === 0) {
+            this.setState({ isError: true })
+            return
         }
         this.props.history.push("/Done");
         }).catch(function(err) {
-          
+            this.setState({ isLoading:false, isError: true })
         console.info(err + "------err------");
     });
   
@@ -75,26 +85,37 @@ class InitForm extends React.Component {
 
 
   render() {
+      if (this.state.isLoading) {
+             return (
+                 <div style= {{justifyContent:"center", display:"flex"}}>
+                     <CircularProgress style={{margin:"20px"}} />
+               </div>
+             )
+      }
+      else if (this.state.isError) {
+             return (
+                <div>
+                <Alert severity="error" style={{display: 'flex', justifyContent: 'center'}}>Error! Something Happened. Please Try Again.</Alert>
+                </div>
+              );
+      }
     
       return (
           <div id="main">
             <div style={{ "marginLeft": "40px"}}>
               <br />
           How to use:<br />
-              <List>
-                <ListItem>Fill out this Form</ListItem>
-                <ListItem>App sends out a form to all members to fill out their preferences.
-       </ListItem>
-                <ListItem>Once done (or deadline reached), the app will form you and the members groups and send emails to informing people of their groups
-        </ListItem>
-              </List>
+              <ul>
+                <li>Fill out this form.</li>
+                <li>App sends out a email to all the members, asking them their preferences.</li>
+                <li>Once the preferences are collected (or deadline is reached), the app will form groups and send emails to informing people of their groups.
+        </li>
+              </ul>
             </div>
             <br />
-        
             <Grid container
               spacing={0}
               direction="column"
-              alignItems="left"
               style={{ minHeight: '100vh', margin:'40px'}}>
               <form id="mainForm" onSubmit={this.handleSubmit}>
                 <p>Your Name</p>
@@ -122,7 +143,7 @@ class InitForm extends React.Component {
 
                   onChange={this.handleChange}
               />
-               <p>Max Group Size</p>
+               <p>Group Size</p>
                 <TextField
                   name="grpSize"
                 type="number" InputProps={{inputProps: {  min: 0   }}} 

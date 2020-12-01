@@ -1,6 +1,7 @@
 import React from 'react';
 import DeleteIcon from '@material-ui/icons/Delete';
-import { Autocomplete } from '@material-ui/lab'
+import { Autocomplete,Alert } from '@material-ui/lab'
+import CircularProgress from '@material-ui/core/CircularProgress';
 import {Paper,List,ListItem,Grid,Typography,IconButton,Button, TextField} from '@material-ui/core'
 class FillPreference extends React.Component {
     constructor(props) {
@@ -13,7 +14,7 @@ class FillPreference extends React.Component {
         this.getNames()
 
         this.state = {
-            name: "Loading...", title: "Loading...", owner_name: "Loading....", all: [], chosen: [], chosenPref: []
+            name: "Loading...", title: "Loading...", owner_name: "Loading....", all: [], chosen: [], chosenPref: [],isLoading:true,isError:false
         }
     }
 
@@ -26,13 +27,15 @@ class FillPreference extends React.Component {
     fetch('https://silverbug.eastus.cloudapp.azure.com/fill/'+this.props.match.params.id+"/"+this.props.match.params.secret, requestOptions)
         .then(response => (response.json()))
         .then(data => {
-        if (data["status"] === 0) {
-            alert(data["message"])
-            return
-        }
+            this.setState({ isLoading: false })
+            if (data["status"] === 0) {
+                this.setState({ isError: true })
+                return
+            }
           this.setState({name:data["name"],title:data["title"],owner_name:data["owner_name"],all:data["names"],chosen:[]})
-        }).catch(function(err) {
-        console.info(err + "------err------");
+        }).catch(function (err) {
+            this.setState({ isLoading: false, isError:true})
+            console.info(err + "------err------");
     });
   
   }
@@ -43,6 +46,7 @@ class FillPreference extends React.Component {
         var data = this.state.chosen.map(function (e, i) {
             return [e, chosenPref[i]];
         })
+        this.setState({isLoading:true})
         var payload = {"data":data}
         const requestOptions = {
         method: 'POST',
@@ -52,13 +56,16 @@ class FillPreference extends React.Component {
         
         fetch('https://silverbug.eastus.cloudapp.azure.com/submit/' + this.props.match.params.id + "/" + this.props.match.params.secret, requestOptions)
             .then(response => (response.json())).then(data => {
-         if (data["status"] === 0) {
-             alert(data["message"])
-             return
-        }
-        this.props.history.push("/Done");
-        }).catch(function(err) {
-        console.info(err + "------err------");
+                if (data["status"] === 0) {
+                    this.setState({ isError: true })
+                    return
+                }
+                else {
+                    this.props.history.push("/Done");
+                }
+            }).catch(function (err) {
+                this.setState({isError:true})
+                console.info(err + "------err------");
     });
 
     }
@@ -83,13 +90,27 @@ class FillPreference extends React.Component {
         }
   };
     render() {
+
+        if (this.state.isLoading) {
+             return (
+                 <div style= {{justifyContent:"center", display:"flex"}}>
+                     <CircularProgress style={{margin:"20px"}} />
+            </div>)
+        }
+        else if (this.state.isError) {
+             return (
+                <div>
+                <Alert severity="error" style={{display: 'flex', justifyContent: 'center'}}>Error! Something Happened. Please Try Again.</Alert>
+                </div>
+                );
+        }
         const items = []
 
         for (const i in this.state.chosen) {
 
             items.push(<Item key={ i.toString()} name={this.state.chosen[i]} onClick = {() => this.delete(i)}  onPref = {(event) => this.pref(i,event.target.value)}/>)
         }
-      return (
+        return (
            <Grid container
               spacing={0}
               direction="column"
