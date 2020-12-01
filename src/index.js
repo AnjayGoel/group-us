@@ -15,7 +15,7 @@ ReactDOM.render(
               Group Us
             </Toolbar>
       </AppBar>
-      <HashRouter basename="https://anjaygoel.github.io/GroupUs/">
+      <HashRouter>
         <App />
     </HashRouter>, 
       </div>
