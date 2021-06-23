@@ -4,6 +4,8 @@
 /node_modules
 /.pnp
 .pnp.js
+npm-debug.log
+.idea
 
 # testing
 /coverage

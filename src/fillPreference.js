@@ -44,7 +44,7 @@ class FillPreference extends React.Component {
             body: JSON.stringify(this.state),
         };
         fetch(
-            api_url+"/fill/" +
+            api_url + "/fill/" +
             this.props.match.params.id +
             "/" +
             this.props.match.params.secret,
@@ -68,14 +68,14 @@ class FillPreference extends React.Component {
             .catch(function (err) {
                 this.setState({isLoading: false, isError: true});
                 console.info(err + "------err------");
-            });
+            }.bind(this));
     }
 
     handleSubmit(event) {
         event.preventDefault();
         const chosenPref = this.state.chosenPref;
         var data = this.state.chosen.map(function (e, i) {
-            return [e, chosenPref[i]];
+            return {"name": e, "score": chosenPref[i]};
         });
         this.setState({isLoading: true});
         var payload = {data: data};
@@ -86,7 +86,7 @@ class FillPreference extends React.Component {
         };
 
         fetch(
-            api_url+"/submit/" +
+            api_url + "/submit/" +
             this.props.match.params.id +
             "/" +
             this.props.match.params.secret,
@@ -104,7 +104,7 @@ class FillPreference extends React.Component {
             .catch(function (err) {
                 this.setState({isError: true});
                 console.info(err + "------err------");
-            });
+            }.bind(this));
     }
 
     delete(i) {
@@ -266,7 +266,7 @@ class Item extends React.Component {
                             InputProps={{inputProps: {max: 10, min: 0}}}
                             type="number"
                             label="Preference (0-10)"
-                        ></TextField>
+                        />
                         <IconButton aria-label="delete" onClick={this.props.onClick}>
                             <DeleteIcon fontSize="large"/>
                         </IconButton>
