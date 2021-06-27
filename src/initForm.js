@@ -32,8 +32,8 @@ class InitForm extends React.Component {
             this.setState({member_names: val.trim().split(/\r?\n/)});
         } else if (name === "deadline") {
             this.setState({deadline: Date.parse(val) / 1000});
-        } else if (name === "grpSize") {
-            this.setState({grpSize: parseInt(val)});
+        } else if (name === "grp_size") {
+            this.setState({grp_size: parseInt(val)});
         } else {
             this.setState({[name]: val});
         }
@@ -223,7 +223,7 @@ class InitForm extends React.Component {
                         <form id="mainForm" onSubmit={this.handleSubmit}>
                             <p>Your Name</p>
                             <TextField
-                                name="owner_name"
+                                name="organizer_name"
                                 type="text"
                                 required={true}
                                 data-parse="uppercase"
@@ -231,21 +231,21 @@ class InitForm extends React.Component {
                             />
                             <p>Your Email</p>
                             <TextField
-                                name="owner_email"
+                                name="organizer_email"
                                 type="email"
                                 required={true}
                                 onChange={this.handleChange}
                             />
                             <p>Title of Project</p>
                             <TextField
-                                name="title"
+                                name="project_title"
                                 type="text"
                                 required={true}
                                 onChange={this.handleChange}
                             />
                             <p>Group Size</p>
                             <TextField
-                                name="grpSize"
+                                name="grp_size"
                                 type="number"
                                 InputProps={{inputProps: {min: 2}}}
                                 required={true}

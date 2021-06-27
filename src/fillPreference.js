@@ -27,8 +27,8 @@ class FillPreference extends React.Component {
 
         this.state = {
             name: "Loading...",
-            title: "Loading...",
-            owner_name: "Loading....",
+            project_title: "Loading...",
+            organizer_name: "Loading....",
             all: [],
             chosen: [],
             chosenPref: [],
@@ -44,7 +44,7 @@ class FillPreference extends React.Component {
             body: JSON.stringify(this.state),
         };
         fetch(
-            api_url + "/fill/" +
+            api_url + "/vote/" +
             this.props.match.params.id +
             "/" +
             this.props.match.params.secret,
@@ -59,8 +59,8 @@ class FillPreference extends React.Component {
                 }
                 this.setState({
                     name: data["name"],
-                    title: data["title"],
-                    owner_name: data["owner_name"],
+                    project_title: data["project_title"],
+                    organizer_name: data["organizer_name"],
                     all: data["names"].filter((item) => item !== data["name"]),
                     chosen: [],
                 });
@@ -86,7 +86,7 @@ class FillPreference extends React.Component {
         };
 
         fetch(
-            api_url + "/submit/" +
+            api_url + "/vote/" +
             this.props.match.params.id +
             "/" +
             this.props.match.params.secret,
@@ -175,7 +175,7 @@ class FillPreference extends React.Component {
                     <form onSubmit={this.handleSubmit}>
                         <p>
                             Hello {this.state.name},<br/>
-                            Please fill out your preferences for {this.state.title}{" "}
+                            Please fill out your preferences for {this.state.project_title}{" "}
                         </p>
                         <span
                             style={{
