@@ -223,7 +223,7 @@ class FillPreference extends React.Component {
                             Note:
                             <ul>
                                 <li>
-                                    You can leave out choices, it that case they will be given a
+                                    You can leave out choices, it that case they will be assigned a
                                     preference of zero.
                                 </li>
                                 <li>
