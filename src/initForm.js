@@ -138,7 +138,7 @@ class InitForm extends React.Component {
                             <ul>
                                 <li>
                                     It automates group formation for
-                                    projects/presentations/assignments etc, based on individual preferences
+                                    projects/presentations/assignments etc, based on individual preferences.
                                 </li>
                             </ul>
                         </li>
@@ -181,7 +181,7 @@ class InitForm extends React.Component {
                                     Once everyone has filled their choices (or the deadline is reached),
                                     the app will form optimal groups and send emails to all the participants,
                                     informing them of their respective groups.
-                                    Additionally it will also send you a mail containing all group allocations
+                                    Additionally it will also send you a mail containing all group allocations.
                                 </li>
                             </ul>
                             <br/>
