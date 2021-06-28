@@ -50,7 +50,7 @@ ReactDOM.render(
                 <AppBar position="static">
                     <Toolbar>
                         <Typography>
-                            <Link href="/" color="inherit" style={{textDecoration: 'none'}}>
+                            <Link href="https://anjaygoel.github.io/GroupUs/" color="inherit" style={{textDecoration: 'none'}}>
                                 Group Us
                             </Link>
                         </Typography>
