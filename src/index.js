@@ -1,26 +1,66 @@
-import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import InitForm from "./initForm";
 import About from "./about";
 import Done from "./done";
-import {Box, AppBar, Toolbar, Typography} from "@material-ui/core";
+import {Box, AppBar, Toolbar, Typography, Link, MuiThemeProvider} from "@material-ui/core";
 import {HashRouter, Route, Switch} from "react-router-dom";
 import FillPreference from "./fillPreference";
+import {createMuiTheme} from "@material-ui/core/styles";
+import React from "react";
 
+const my_theme = createMuiTheme({
+    palette: {
+        primary: {
+            light: '#757ce8',
+            main: '#3f50b5',
+            dark: '#002884',
+            contrastText: '#fff',
+        },
+        secondary: {
+            light: '#ff7961',
+            main: '#f44336',
+            dark: '#ba000d',
+            contrastText: '#000',
+        },
+    },
+});
+
+const my_theme_d = createMuiTheme({
+    palette: {
+        primary: {
+            light: '#000000',
+            main: '#000000',
+            dark: '#000000',
+            contrastText: '#fff',
+        },
+        secondary: {
+            light: '#ff7961',
+            main: '#f44336',
+            dark: '#ba000d',
+            contrastText: '#000',
+        },
+    },
+});
 
 ReactDOM.render(
     <React.StrictMode>
-        <Box bgcolor="#FAFAFA">
-            <AppBar position="static">
-                <Toolbar>
-                    <Typography>Group Us</Typography>
-                </Toolbar>
-            </AppBar>
-            <HashRouter>
-                <App/>
-            </HashRouter>
-        </Box>
+        <MuiThemeProvider theme={my_theme}>
+            <Box>
+                <AppBar position="static">
+                    <Toolbar>
+                        <Typography>
+                            <Link href="/" color="inherit" style={{textDecoration: 'none'}}>
+                                Group Us
+                            </Link>
+                        </Typography>
+                    </Toolbar>
+                </AppBar>
+                <HashRouter>
+                    <App/>
+                </HashRouter>
+            </Box>
+        </MuiThemeProvider>
     </React.StrictMode>,
     document.getElementById("root")
 );

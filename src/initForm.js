@@ -2,13 +2,10 @@ import React from "react";
 import validator from "validator";
 import {Alert} from "@material-ui/lab";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import Divider from "@material-ui/core/Divider";
 import {
     Paper,
     Button,
     Box,
-    List,
-    ListItem,
     Grid,
     TextField,
 } from "@material-ui/core";
@@ -141,27 +138,26 @@ class InitForm extends React.Component {
                             <ul>
                                 <li>
                                     It automates group formation for
-                                    projects/presentations/assignments etc.
+                                    projects/presentations/assignments etc, based on individual preferences
                                 </li>
                             </ul>
                         </li>
                         <li>
                             <p>
-                                <b>But why not just ask people instead?</b>
+                                <b>But why not just ask other participants instead?</b>
                                 <br/>
                                 <ul>
                                     <li>
-                                        Its really annoying to ask tens of people to see if they are
-                                        available.
+                                        Asking dozens of people to see if they are
+                                        available is really annoying.
                                     </li>
                                     <li>
-                                        Its even more difficult when most people are matched but
-                                        some groups have vacancies.
+                                        You might feel that you would have been better off with some other choice.
                                     </li>
                                     <li>
-                                        You might feel that you could have been better off with some
-                                        other choice.
+                                        A situation might arise where everyone is grouped but some groups are left with vacancies
                                     </li>
+
                                     <li>
                                         By letting an app do the matching, you also avoid all those
                                         awkward moments where you have to reject someone or get
@@ -175,16 +171,17 @@ class InitForm extends React.Component {
                             <b>How to use?</b>
                             <br/>
                             <ul>
-                                <li>Fill out this form.</li>
+                                <li>You fill out this form.</li>
                                 <li>
-                                    The app will send a form to all the participants, asking them
-                                    to assign a preference (on a scale of 1 to 10) to people they
-                                    would like to be paired with.
+                                    The app will mail a form to every participants, asking them
+                                    to assign a preference (on a scale of 1 to 10) to all the other participants they
+                                    would like to be grouped with.
                                 </li>
                                 <li>
-                                    Once the preferences are collected (or deadline is reached),
-                                    the app will form optimal groups and send emails (to you and
-                                    all members), informing them of their groups.
+                                    Once everyone has filled their choices (or the deadline is reached),
+                                    the app will form optimal groups and send emails to all the participants,
+                                    informing them of their respective groups.
+                                    Additionally it will also send you a mail containing all group allocations
                                 </li>
                             </ul>
                             <br/>
@@ -193,11 +190,11 @@ class InitForm extends React.Component {
                             <b>How does it work?</b>
                             <ul>
                                 <li>
-                                    See &nbsp;
+                                    See&nbsp;
                                     <a href="https://github.com/AnjayGoel/Stable-Roommate-Generalised">
-                                        this.
-                                    </a>
-                                    &nbsp; Suggestions, PR are welcomed.
+                                        this
+                                    </a>.
+                                    &nbsp;Suggestions, PR are welcomed.
                                 </li>
                             </ul>
                         </li>
