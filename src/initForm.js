@@ -11,7 +11,6 @@ import {
 } from "@material-ui/core";
 import {api_url} from "./config";
 
-
 class InitForm extends React.Component {
     constructor() {
         super();
@@ -155,7 +154,8 @@ class InitForm extends React.Component {
                                         You might feel that you would have been better off with some other choice.
                                     </li>
                                     <li>
-                                        A situation might arise where everyone is grouped but some groups are left with vacancies.
+                                        A situation might arise where everyone is grouped but some groups are left with
+                                        vacancies.
                                     </li>
 
                                     <li>
@@ -256,7 +256,7 @@ class InitForm extends React.Component {
                             />
                             <div style={{display: "flex"}}>
                 <span style={{margin: "20px", marginLeft: "0px"}}>
-                  <p>Names of Participants (Seperated by a new line)</p>
+                  <p>Participants Names</p>
                   <TextField
                       multiline={true}
                       required={true}
@@ -266,10 +266,12 @@ class InitForm extends React.Component {
                       label="Participant Names"
                       variant="outlined"
                       name="member_names"
+                      helperText="Seperated by a new line"
+
                   />
                 </span>
                                 <span style={{margin: "20px"}}>
-                  <p>Emails of Participant (In same order as names)</p>
+                                    <p>Participant Emails</p>
                   <TextField
                       multiline={true}
                       required={true}
@@ -279,6 +281,7 @@ class InitForm extends React.Component {
                       label="Participant Emails"
                       variant="outlined"
                       name="member_emails"
+                      helperText="Ensure same order as names"
                   />
                 </span>
                                 <p/>
