@@ -155,7 +155,7 @@ class InitForm extends React.Component {
                                         You might feel that you would have been better off with some other choice.
                                     </li>
                                     <li>
-                                        A situation might arise where everyone is grouped but some groups are left with vacancies
+                                        A situation might arise where everyone is grouped but some groups are left with vacancies.
                                     </li>
 
                                     <li>
@@ -193,8 +193,7 @@ class InitForm extends React.Component {
                                     See&nbsp;
                                     <a href="https://github.com/AnjayGoel/Stable-Roommate-Generalised">
                                         this
-                                    </a>.
-                                    &nbsp;Suggestions, PR are welcomed.
+                                    </a>. Suggestions, PRs are welcomed.
                                 </li>
                             </ul>
                         </li>
