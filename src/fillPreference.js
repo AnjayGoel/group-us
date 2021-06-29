@@ -161,7 +161,13 @@ class FillPreference extends React.Component {
             );
         }
         return (
-            <Box id="main" style={{display: "inline-block"}}>
+            <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}>
+
+            <Box id="main" style={{justifyContent: "center",display: "inline-block"}}>
                 <Paper
                     elevation={3}
                     style={{
@@ -235,6 +241,7 @@ class FillPreference extends React.Component {
                     </form>
                 </Paper>
             </Box>
+            </div>
         );
     }
 }

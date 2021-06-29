@@ -4,7 +4,7 @@ import InitForm from "./initForm";
 import About from "./about";
 import Done from "./done";
 import {Box, AppBar, Toolbar, Typography, Link, MuiThemeProvider} from "@material-ui/core";
-import {HashRouter, Route, Switch} from "react-router-dom";
+import {HashRouter, Route, Switch,Redirect} from "react-router-dom";
 import FillPreference from "./fillPreference";
 import {createMuiTheme} from "@material-ui/core/styles";
 import React from "react";
@@ -50,7 +50,7 @@ ReactDOM.render(
                 <AppBar position="static">
                     <Toolbar>
                         <Typography>
-                            <Link href="https://anjaygoel.github.io/GroupUs/" color="inherit" style={{textDecoration: 'none'}}>
+                            <Link href="/GroupUs" color="inherit" style={{textDecoration: 'none'}}>
                                 Group Us
                             </Link>
                         </Typography>
@@ -74,6 +74,7 @@ function App() {
                 <Route path="/about" component={About}/>
                 <Route path="/done" component={Done}/>
                 <Route path="/fillPreference/:id/:secret" component={FillPreference}/>
+                <Route render={() => <Redirect to={{pathname: "/"}} />} />
             </Switch>
         </main>
     );

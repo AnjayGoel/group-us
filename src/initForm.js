@@ -37,7 +37,6 @@ class InitForm extends React.Component {
 
     async handleSubmit(event) {
         event.preventDefault();
-        this.setState({isLoading: true});
 
         for (const i of this.state["member_emails"]) {
             if (!validator.isEmail(i.trim())) {
@@ -64,6 +63,13 @@ class InitForm extends React.Component {
             alert("Different Number Of Names And Email");
             return;
         }
+
+        if (this.state.deadline< Date.now()/1000) {
+            alert("Please Enter Valid Deadline");
+            return;
+        }
+
+        this.setState({isLoading: true});
         let payload = {...this.state};
         delete payload["isError"];
         delete payload["isLoading"];
@@ -267,7 +273,6 @@ class InitForm extends React.Component {
                       variant="outlined"
                       name="member_names"
                       helperText="Seperated by a new line"
-
                   />
                 </span>
                                 <span style={{margin: "20px"}}>
