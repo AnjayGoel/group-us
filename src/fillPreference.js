@@ -33,6 +33,7 @@ class FillPreference extends React.Component {
             chosenPref: [],
             isLoading: true,
             isError: false,
+            errorMsg: ""
         };
     }
 
@@ -54,6 +55,7 @@ class FillPreference extends React.Component {
                 this.setState({isLoading: false});
                 if (data["status"] === 0) {
                     this.setState({isError: true});
+                    this.setState({errorMsg:data["message"]});
                     return;
                 }
                 this.setState({
@@ -143,7 +145,7 @@ class FillPreference extends React.Component {
                         severity="error"
                         style={{display: "flex", justifyContent: "center"}}
                     >
-                        Error! Something Happened. Please Try Again.
+                        Error! {this.state.errorMsg}.
                     </Alert>
                 </div>
             );
@@ -184,6 +186,7 @@ class FillPreference extends React.Component {
                         </p>
                         <span
                             style={{
+                                marginLeft:-100,
                                 display: "flex",
                                 flexDirection: "row",
                                 justifyContent: "center",
@@ -266,7 +269,7 @@ class Item extends React.Component {
                             {this.props.name}
                         </Typography>
                         <TextField
-                            style={{minWidth: "170px"}}
+                            style={{minWidth: "170px",marginBottom:"20px"}}
                             required={true}
                             onChange={this.props.onPref}
                             InputProps={{inputProps: {max: 10, min: 0}}}

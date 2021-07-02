@@ -3,10 +3,11 @@ import "./index.css";
 import InitForm from "./initForm";
 import About from "./about";
 import Done from "./done";
-import {Box, AppBar, Toolbar, Typography, Link, MuiThemeProvider} from "@material-ui/core";
-import {HashRouter, Route, Switch,Redirect} from "react-router-dom";
+import {Box, AppBar, Toolbar, Typography, Link, MuiThemeProvider, Button, IconButton} from "@material-ui/core";
+import {HashRouter, Route, Switch, Redirect} from "react-router-dom";
 import FillPreference from "./fillPreference";
 import {createMuiTheme} from "@material-ui/core/styles";
+import GitHubIcon from '@material-ui/icons/GitHub';
 import React from "react";
 
 const my_theme = createMuiTheme({
@@ -49,11 +50,17 @@ ReactDOM.render(
             <Box>
                 <AppBar position="static">
                     <Toolbar>
-                        <Typography>
+                        <Typography style={{fontSize: "large"}}>
                             <Link href="/GroupUs" color="inherit" style={{textDecoration: 'none'}}>
                                 Group Us
                             </Link>
                         </Typography>
+                        <div style={{marginLeft: 'auto'}}>
+                            <IconButton aria-label="Github" style={{color: "white", justifySelf: "right"}}
+                                        onClick={() => window.open('https://github.com/anjaygoel')}>
+                                <GitHubIcon style={{color: "white", justifySelf: "right"}}/>
+                            </IconButton>
+                        </div>
                     </Toolbar>
                 </AppBar>
                 <HashRouter>
@@ -74,7 +81,7 @@ function App() {
                 <Route path="/about" component={About}/>
                 <Route path="/done" component={Done}/>
                 <Route path="/fillPreference/:id/:secret" component={FillPreference}/>
-                <Route render={() => <Redirect to={{pathname: "/"}} />} />
+                <Route render={() => <Redirect to={{pathname: "/"}}/>}/>
             </Switch>
         </main>
     );

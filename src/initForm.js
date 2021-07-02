@@ -64,7 +64,7 @@ class InitForm extends React.Component {
             return;
         }
 
-        if (this.state.deadline< Date.now()/1000) {
+        if (this.state.deadline < Date.now() / 1000) {
             alert("Please Enter Valid Deadline");
             return;
         }
@@ -127,7 +127,12 @@ class InitForm extends React.Component {
         }
 
         return (
-            <Box id="main">
+            <Grid container
+                  alignItems='center'
+                  justify='center'
+                  style={{ minHeight: "100vh" }}
+                  id="main"
+            >
                 <Paper
                     elevation={3}
                     style={{
@@ -137,6 +142,12 @@ class InitForm extends React.Component {
                         paddingTop: "30px",
                     }}
                 >
+                                      <span
+                                          style={{
+                                              display: "flex",
+                                              flexDirection: "row"
+                                          }}
+                                      >
                     <ul>
                         <li>
                             <b>Whats this app about?</b>
@@ -186,7 +197,8 @@ class InitForm extends React.Component {
                                 <li>
                                     Once everyone has filled their choices (or the deadline is reached),
                                     the app will form optimal groups and send emails to all the participants,
-                                    informing them of their respective groups.
+                                    informing them of their respective groups.</li>
+                                <li>
                                     Additionally it will also send you a mail containing all group allocations.
                                 </li>
                             </ul>
@@ -204,6 +216,7 @@ class InitForm extends React.Component {
                             </ul>
                         </li>
                     </ul>
+                                      </span>
                 </Paper>
                 <br/>
                 <Paper
@@ -292,12 +305,12 @@ class InitForm extends React.Component {
                                 <p/>
                             </div>
                             <Button type="Submit" variant="contained" color="primary">
-                                Submit
+                                Create
                             </Button>
                         </form>
                     </Grid>
                 </Paper>
-            </Box>
+            </Grid>
         );
     }
 }
