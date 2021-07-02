@@ -183,20 +183,17 @@ class InitForm extends React.Component {
                     <span
                         style={{
                             display: "flex",
-                            flexDirection: "row"
+                            flexDirection: "column",
+                            padding:"10px"
                         }}
                     >
-                    <ul>
-                        <li>
-                            <b>Whats this app about?</b>
+                            <b>Whats this app about?</b><br/>
                             <ul>
                                 <li>
                                     It automates group formation for
                                     projects/presentations/assignments etc, based on individual preferences.
                                 </li>
                             </ul>
-                        </li>
-                        <li>
                             <p>
                                 <b>But why not just ask other participants instead?</b>
                                 <br/>
@@ -219,9 +216,8 @@ class InitForm extends React.Component {
                                     </li>
                                 </ul>
                             </p>
-                        </li>
 
-                        <li>
+
                             <b>How to use?</b>
                             <br/>
                             <ul>
@@ -240,8 +236,7 @@ class InitForm extends React.Component {
                                 </li>
                             </ul>
                             <br/>
-                        </li>
-                        <li>
+
                             <b>How does it work?</b>
                             <ul>
                                 <li>
@@ -251,8 +246,6 @@ class InitForm extends React.Component {
                                     </a>. Suggestions, PRs are welcomed.
                                 </li>
                             </ul>
-                        </li>
-                    </ul>
                                       </span>
                 </Paper>
                 <br/>
@@ -269,7 +262,7 @@ class InitForm extends React.Component {
                         spacing={0}
                         direction="column"
                         style={{
-                            padding: "40px",
+                            padding: "30px",
                         }}
                     >
                         <TextField
@@ -329,7 +322,7 @@ class InitForm extends React.Component {
                                     helperText="Seperated by a new line"
                                 />
                             </span>
-                            <span style={{margin: "20px"}}>
+                            <span style={{margin: "20px",marginRight:"0px"}}>
                                 <TextField
                                     multiline={true}
                                     required={true}
