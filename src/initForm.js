@@ -14,8 +14,8 @@ import {api_url} from "./config";
 
 class InitForm extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             isLoading: false,
             isError: false,
