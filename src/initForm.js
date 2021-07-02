@@ -16,7 +16,12 @@ class InitForm extends React.Component {
 
     constructor() {
         super();
-        this.state = {isLoading: false, isError: false, alertState: false, alertMsg: "Please check the form for errors"};
+        this.state = {
+            isLoading: false,
+            isError: false,
+            alertState: false,
+            alertMsg: "Please check the form for errors"
+        };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.showAlert = this.showAlert.bind(this);
