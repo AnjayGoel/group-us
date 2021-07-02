@@ -68,7 +68,6 @@ class FillPreference extends React.Component {
             })
             .catch(function (err) {
                 this.setState({isLoading: false, isError: true});
-                console.info(err + "------err------");
             }.bind(this));
     }
 

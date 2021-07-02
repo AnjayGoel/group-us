@@ -7,16 +7,20 @@ import {
     Button,
     Box,
     Grid,
-    TextField,
+    TextField, Dialog, DialogTitle, DialogContent, DialogActions, DialogContentText,
 } from "@material-ui/core";
 import {api_url} from "./config";
 
+
 class InitForm extends React.Component {
+
     constructor() {
         super();
-        this.state = {isLoading: false, isError: false};
+        this.state = {isLoading: false, isError: false, alertState: false, alertMsg: "Please check the form for errors"};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.showAlert = this.showAlert.bind(this);
+        this.hideAlert = this.hideAlert.bind(this);
     }
 
     handleChange(event) {
@@ -35,12 +39,20 @@ class InitForm extends React.Component {
         }
     }
 
+    hideAlert() {
+        this.setState({alertState: false})
+    };
+
+    showAlert(msg) {
+        this.setState({alertMsg: msg, alertState: true})
+    }
+
     async handleSubmit(event) {
         event.preventDefault();
 
         for (const i of this.state["member_emails"]) {
             if (!validator.isEmail(i.trim())) {
-                alert(
+                this.showAlert(
                     "Please Check Member Emails For Error (Invalid Email-Id,Empty Rows etc)"
                 );
                 return;
@@ -48,7 +60,7 @@ class InitForm extends React.Component {
         }
         for (const i of this.state["member_names"]) {
             if (i === "") {
-                alert("Please Check Member Names For Error (Empty Rows etc)");
+                this.showAlert("Please Check Member Names For Error (Empty Rows etc)");
                 return;
             }
         }
@@ -56,16 +68,21 @@ class InitForm extends React.Component {
             this.state.member_emails.length === 0 ||
             this.state.member_names.length === 0
         ) {
-            alert("Please Fill All Fields");
+            this.showAlert("Please Fill All Fields");
             return;
         }
         if (this.state.member_emails.length !== this.state.member_names.length) {
-            alert("Different Number Of Names And Email");
+            this.showAlert("Different Number Of Names And Email");
+            return;
+        }
+
+        if (this.state.member_emails.length < this.state.grp_size) {
+            this.showAlert("Number of members cannot be less than group size.")
             return;
         }
 
         if (this.state.deadline < Date.now() / 1000) {
-            alert("Please Enter Valid Deadline");
+            this.showAlert("Please Enter Valid Deadline");
             return;
         }
 
@@ -73,6 +90,8 @@ class InitForm extends React.Component {
         let payload = {...this.state};
         delete payload["isError"];
         delete payload["isLoading"];
+        delete payload["alertState"];
+        delete payload["alertMsg"];
         delete payload["member_emails"];
         delete payload["member_names"];
         payload["members"] = Array()
@@ -83,8 +102,6 @@ class InitForm extends React.Component {
                 "email": this.state.member_emails[i]
             })
         }
-        console.log(payload);
-        console.log("----------");
         const requestOptions = {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -126,13 +143,29 @@ class InitForm extends React.Component {
             );
         }
 
+
         return (
             <Grid container
                   alignItems='center'
                   justify='center'
-                  style={{ minHeight: "100vh" }}
+                  style={{minHeight: "100vh"}}
                   id="main"
             >
+                <Dialog
+                    open={this.state.alertState}
+                >
+                    <DialogContent>
+                        <DialogContentText>
+                            {this.state.alertMsg}
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.hideAlert} color="primary">
+                            Ok
+                        </Button>
+
+                    </DialogActions>
+                </Dialog>
                 <Paper
                     elevation={3}
                     style={{
@@ -142,12 +175,12 @@ class InitForm extends React.Component {
                         paddingTop: "30px",
                     }}
                 >
-                                      <span
-                                          style={{
-                                              display: "flex",
-                                              flexDirection: "row"
-                                          }}
-                                      >
+                    <span
+                        style={{
+                            display: "flex",
+                            flexDirection: "row"
+                        }}
+                    >
                     <ul>
                         <li>
                             <b>Whats this app about?</b>
@@ -174,7 +207,6 @@ class InitForm extends React.Component {
                                         A situation might arise where everyone is grouped but some groups are left with
                                         vacancies.
                                     </li>
-
                                     <li>
                                         By letting an app do the matching, you also avoid all those
                                         awkward moments where you have to reject someone or get
@@ -227,7 +259,7 @@ class InitForm extends React.Component {
                         padding: "10px",
                     }}
                 >
-                    <Grid
+                    <form id="mainForm" onSubmit={this.handleSubmit}><Grid
                         container
                         spacing={0}
                         direction="column"
@@ -235,80 +267,83 @@ class InitForm extends React.Component {
                             padding: "40px",
                         }}
                     >
-                        <form id="mainForm" onSubmit={this.handleSubmit}>
-                            <p>Your Name</p>
-                            <TextField
-                                name="organizer_name"
-                                type="text"
-                                required={true}
-                                data-parse="uppercase"
-                                onChange={this.handleChange}
-                            />
-                            <p>Your Email</p>
-                            <TextField
-                                name="organizer_email"
-                                type="email"
-                                required={true}
-                                onChange={this.handleChange}
-                            />
-                            <p>Title of Project</p>
-                            <TextField
-                                name="project_title"
-                                type="text"
-                                required={true}
-                                onChange={this.handleChange}
-                            />
-                            <p>Group Size</p>
-                            <TextField
-                                name="grp_size"
-                                type="number"
-                                InputProps={{inputProps: {min: 2}}}
-                                required={true}
-                                onChange={this.handleChange}
-                            />
-                            <p>The Deadline for Group Formation</p>
-                            <TextField
-                                name="deadline"
-                                type="date"
-                                required={true}
-                                onChange={this.handleChange}
-                            />
-                            <div style={{display: "flex"}}>
-                <span style={{margin: "20px", marginLeft: "0px"}}>
-                  <p>Participants Names</p>
-                  <TextField
-                      multiline={true}
-                      required={true}
-                      rows={5}
-                      rowsMax={10}
-                      onChange={this.handleChange}
-                      label="Participant Names"
-                      variant="outlined"
-                      name="member_names"
-                      helperText="Seperated by a new line"
-                  />
-                </span>
-                                <span style={{margin: "20px"}}>
-                                    <p>Participant Emails</p>
-                  <TextField
-                      multiline={true}
-                      required={true}
-                      rows={5}
-                      rowsMax={10}
-                      onChange={this.handleChange}
-                      label="Participant Emails"
-                      variant="outlined"
-                      name="member_emails"
-                      helperText="Ensure same order as names"
-                  />
-                </span>
-                                <p/>
-                            </div>
-                            <Button type="Submit" variant="contained" color="primary">
-                                Create
-                            </Button>
-                        </form>
+                        <TextField
+                            name="organizer_name"
+                            type="text"
+                            label="Organizer's Name"
+                            required={true}
+                            data-parse="uppercase"
+                            onChange={this.handleChange}
+                        />
+                        <p/>
+                        <TextField
+                            name="organizer_email"
+                            type="email"
+                            label="Organizer's Email"
+                            required={true}
+                            onChange={this.handleChange}
+                        />
+                        <p/>
+                        <TextField
+                            name="project_title"
+                            type="text"
+                            label="Title of Project"
+                            required={true}
+                            onChange={this.handleChange}
+                        />
+                        <p/>
+                        <TextField
+                            name="grp_size"
+                            type="number"
+                            label="Group Size"
+                            InputProps={{inputProps: {min: 2}}}
+                            required={true}
+                            onChange={this.handleChange}
+                        />
+                        <p/>
+                        <TextField
+                            name="deadline"
+                            type="date"
+                            label="Group formation deadline"
+                            required={true}
+                            InputLabelProps={{shrink: true}}
+                            onChange={this.handleChange}
+                        />
+                        <p/>
+                        <div style={{display: "flex"}}>
+                            <span style={{margin: "20px", marginLeft: "0px"}}>
+                                <TextField
+                                    multiline={true}
+                                    required={true}
+                                    rows={5}
+                                    rowsMax={10}
+                                    onChange={this.handleChange}
+                                    label="Participant Names"
+                                    variant="outlined"
+                                    name="member_names"
+                                    helperText="Seperated by a new line"
+                                />
+                            </span>
+                            <span style={{margin: "20px"}}>
+                                <TextField
+                                    multiline={true}
+                                    required={true}
+                                    rows={5}
+                                    rowsMax={10}
+                                    onChange={this.handleChange}
+                                    label="Participant Emails"
+                                    variant="outlined"
+                                    name="member_emails"
+                                    helperText="Ensure same order as names"
+                                />
+                            </span>
+                            <p/>
+                        </div>
+                        <Button type="Submit" variant="contained" color="primary">
+                            Create
+                        </Button>
                     </Grid>
+                    </form>
                 </Paper>
             </Grid>
         );
